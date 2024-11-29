@@ -115,9 +115,6 @@ const patchDataSource = (dataSource: DataSource) => {
   });
 
   const originalQuery = DataSource.prototype.query;
-  if (originalQuery.length !== 3) {
-    throw new TypeOrmUpdatedPatchError();
-  }
 
   dataSource.query = function (...args: unknown[]) {
     args[2] = args[2] || this.manager?.queryRunner;
@@ -126,9 +123,6 @@ const patchDataSource = (dataSource: DataSource) => {
   };
 
   const originalCreateQueryBuilder = DataSource.prototype.createQueryBuilder;
-  if (originalCreateQueryBuilder.length !== 3) {
-    throw new TypeOrmUpdatedPatchError();
-  }
 
   dataSource.createQueryBuilder = function (...args: unknown[]) {
     if (args.length === 0) {
